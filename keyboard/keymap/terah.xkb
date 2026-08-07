@@ -1,0 +1,20 @@
+xkb_keymap {
+
+    xkb_keycodes {
+        include "evdev+aliases(qwerty)"
+    };
+
+    xkb_types {
+        include "complete"
+        include "terah(ctrl_shortcuts)"
+    };
+
+    xkb_compat {
+        include "complete"
+    };
+
+    xkb_symbols {
+        include "pc+terah(basic)+inet(evdev)"
+    };
+
+};

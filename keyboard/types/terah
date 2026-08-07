@@ -1,0 +1,19 @@
+partial xkb_types "ctrl_shortcuts" {
+
+    type "TERAH_CTRL" {
+        modifiers = Shift+Control;
+
+        map[None]          = Level1;
+        map[Shift]         = Level2;
+        map[Control]       = Level3;
+        map[Shift+Control] = Level4;
+
+        preserve[Control]       = Control;
+        preserve[Shift+Control] = Shift+Control;
+
+        level_name[Level1] = "Terah";
+        level_name[Level2] = "Terah Shift";
+        level_name[Level3] = "Latin Ctrl";
+        level_name[Level4] = "Latin Ctrl+Shift";
+    };
+};
