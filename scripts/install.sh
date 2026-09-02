@@ -2,40 +2,25 @@
 
 set -e
 
-########################################
-# Project paths
-########################################
-
 PROJECT_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-
 SYMBOLS_SOURCE="$PROJECT_ROOT/keyboard/symbols/terah"
 TYPES_SOURCE="$PROJECT_ROOT/keyboard/types/terah"
 
-########################################
-# System paths
-########################################
-
 XKB_ROOT="/usr/share/X11/xkb"
-
 SYMBOLS_TARGET="$XKB_ROOT/symbols/terah"
 TYPES_TARGET="$XKB_ROOT/types/terah"
-
 RULES_XML="$XKB_ROOT/rules/evdev.xml"
 RULES_XML_BACKUP="$XKB_ROOT/rules/evdev.xml.terah.bak"
 
-########################################
-# Check sudo
-########################################
 
+# check root privileges
 if [[ $EUID -ne 0 ]]; then
     echo "Please run with sudo."
     exit 1
 fi
 
-########################################
-# Check source files
-########################################
 
+# check sources
 if [ ! -f "$SYMBOLS_SOURCE" ]; then
     echo "Symbols source file not found:"
     echo "  $SYMBOLS_SOURCE"
@@ -48,10 +33,8 @@ if [ ! -f "$TYPES_SOURCE" ]; then
     exit 1
 fi
 
-########################################
-# Backup
-########################################
 
+# save previous installed version
 echo
 echo "Creating backups..."
 
@@ -63,13 +46,11 @@ if [ -f "$TYPES_TARGET" ]; then
     cp "$TYPES_TARGET" "$TYPES_TARGET.bak"
 fi
 
+# create only once
 if [ ! -f "$RULES_XML_BACKUP" ]; then
     cp "$RULES_XML" "$RULES_XML_BACKUP"
 fi
 
-########################################
-# Install XKB files
-########################################
 
 echo
 echo "Installing Terah XKB files..."
@@ -77,10 +58,8 @@ echo "Installing Terah XKB files..."
 cp "$SYMBOLS_SOURCE" "$SYMBOLS_TARGET"
 cp "$TYPES_SOURCE" "$TYPES_TARGET"
 
-########################################
-# Register layout in evdev.xml
-########################################
 
+# register layout in evdev.xml
 echo
 echo "Registering Terah layout..."
 
@@ -133,9 +112,6 @@ tree.write(
 print("Terah registered successfully.")
 PY
 
-########################################
-# Done
-########################################
 
 echo
 echo "Done."
